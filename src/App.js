@@ -1,13 +1,16 @@
 import React from "react";
 import "./App.css";
-// import TraditionalMode from "./components/screens/TraditionalMode";
-import MainScreen from "./components/screens/MainScreen";
+import AppRouter from "./routers/AppRouter";
+import { Provider } from "react-redux";
+import { store } from "./redux/store/store";
 
 function App() {
   return (
-    <div className='App'>
-      <MainScreen />
-    </div>
+    <Provider store={store}>
+      <div className='App'>
+        <AppRouter />
+      </div>
+    </Provider>
   );
 }
 

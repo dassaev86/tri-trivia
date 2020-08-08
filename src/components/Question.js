@@ -7,6 +7,11 @@ const Question = ({ trivia, idx, getPoints }) => {
   const [randomAnswers, setRandomAnswers] = useState([]);
 
   useEffect(() => {
+    setAlreadyAnswered(false);
+    setCorrectResponse(0);
+  }, [idx]);
+
+  useEffect(() => {
     const randomizeResp = randomizeAnswers(
       trivia.correct_answer,
       trivia.incorrect_answers,
@@ -29,7 +34,7 @@ const Question = ({ trivia, idx, getPoints }) => {
 
   return (
     <div
-      className='col-sm-6 mb-5'
+      className='col-6 mb-5'
       style={{ justifyContent: "center", alignItems: "center" }}>
       <div className='card'>
         <div className='card-body'>

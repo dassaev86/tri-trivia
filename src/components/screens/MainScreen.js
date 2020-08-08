@@ -1,5 +1,6 @@
 import React from "react";
 import triviaImage from "../../assets/traditional_trivia.jpg";
+import { Link } from "react-router-dom";
 
 const MainScreen = () => {
   return (
@@ -19,9 +20,9 @@ const MainScreen = () => {
               <p className='card-text'>
                 Answer 10 questions in the normal difficulty, all categories.
               </p>
-              <a href='https://google.com.mx' className='btn btn-info'>
+              <Link className='btn btn-info' to='/traditional'>
                 Play
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -39,9 +40,9 @@ const MainScreen = () => {
                 Answer all the questions you can until you get 3 mistakes, the
                 you're out!
               </p>
-              <a href='https://google.com.mx' className='btn btn-info'>
+              <Link className='btn btn-info' to='/strikeout'>
                 Play
-              </a>
+              </Link>
             </div>
           </div>
         </div>
