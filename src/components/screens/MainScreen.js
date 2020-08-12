@@ -8,7 +8,7 @@ const MainScreen = () => {
       <h1 className='mb-lg-5'>Welcome to Trivia Game</h1>
 
       <div className='row'>
-        <div className='col-sm-4'>
+        <div className='col-sm-12 col-lg-4'>
           <div className='card' style={{ width: "18rem" }}>
             <img
               src={triviaImage}
@@ -18,7 +18,7 @@ const MainScreen = () => {
             <div className='card-body'>
               <h5 className='card-title'>Traditional Mode</h5>
               <p className='card-text'>
-                Answer 10 questions in the normal difficulty, all categories.
+                Answer questions to get the best possible score.
               </p>
               <Link className='btn btn-info' to='/traditional'>
                 Play
@@ -27,7 +27,7 @@ const MainScreen = () => {
           </div>
         </div>
 
-        <div className='col-sm-4'>
+        <div className='col-sm-12 col-lg-4'>
           <div className='card' style={{ width: "18rem" }}>
             <img
               src={triviaImage}
@@ -47,7 +47,7 @@ const MainScreen = () => {
           </div>
         </div>
 
-        <div className='col-sm-4'>
+        <div className='col-sm-12 col-lg-4'>
           <div className='card' style={{ width: "18rem" }}>
             <img
               src={triviaImage}

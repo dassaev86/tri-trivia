@@ -1,22 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFetchQuestions } from "../../hooks/useFetch";
 import Question from "../Question";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { gameSaveResults } from "../../redux/actions/gameActions";
 
 const StrikeoutGameScreen = () => {
-  const { category, difficulty, amount } = useSelector((state) => state.game);
+  const { category, difficulty, amount, active } = useSelector(
+    (state) => state.game,
+  );
+  const dispatch = useDispatch();
+  const history = useHistory();
   console.log(category, difficulty, amount);
+
   const { results } = useFetchQuestions(amount, difficulty, category);
 
   const [points, setPoints] = useState(0);
   const [errors, setErrors] = useState(0);
+  const [hits, setHits] = useState(0);
   const [qnum, setQnum] = useState(0);
   const [next, setNext] = useState(true);
 
-  const getPoints = (correct, idx) => {
+  useEffect(() => {
+    if (errors === 3 || qnum >= amount) {
+      dispatch(gameSaveResults(hits, errors, points));
+    }
+  }, [hits, errors, points, qnum, amount, dispatch]);
+
+  const getPoints = (correct, difficulty) => {
     if (correct) {
-      setPoints(points + 1);
+      setHits(hits + 1);
+
+      switch (difficulty) {
+        case "easy":
+          setPoints(points + 1);
+          break;
+        case "medium":
+          setPoints(points + 3);
+          break;
+        case "hard":
+          setPoints(points + 5);
+          break;
+
+        default:
+          setPoints(points + 1);
+      }
     } else {
       setErrors(errors + 1);
     }
@@ -28,6 +56,10 @@ const StrikeoutGameScreen = () => {
     setQnum(qnum + 1);
     setNext(true);
   };
+
+  if (!active) {
+    history.replace("/strikeout");
+  }
 
   if (results.length === 0) {
     return <h1>Espere...</h1>;
@@ -41,11 +73,11 @@ const StrikeoutGameScreen = () => {
 
       <div className='row justify-content-md-center'>
         {qnum >= amount && (
-          <div className='col-6'>
+          <div className='col-sm-10 col-lg-6'>
             {/* Aqui va el card de ganaste la partida */}
             <div className='card'>
               <div className='card-header'>
-                You have reached the end of the {amount} questions
+                You have reached the end of the 50 questions
               </div>
               <div className='card-body'>
                 <h5 className='card-title'>You win with {points} points</h5>
@@ -62,7 +94,7 @@ const StrikeoutGameScreen = () => {
         )}
 
         {errors === 3 && (
-          <div className='col-6'>
+          <div className='col-sm-10 col-lg-6'>
             {/* Aqui va el card de ganaste la partida */}
             <div className='card'>
               <div className='card-header'>
@@ -88,15 +120,29 @@ const StrikeoutGameScreen = () => {
       </div>
 
       {qnum < amount && errors < 3 && (
-        <div className='row justify-content-md-center'>
-          <button
-            className='btn btn-info'
-            disabled={next}
-            onClick={handleNextQuestion}>
-            {qnum === amount - 1 ? "Results" : "Next Question"}
-          </button>
+        <div className='row justify-content-center'>
+          <div className='col-sm-10 col-lg-6'>
+            <button
+              className='btn btn-info'
+              disabled={next}
+              onClick={handleNextQuestion}>
+              {qnum === amount - 1 ? "Results" : "Next Question"}
+            </button>
+          </div>
         </div>
       )}
+
+      <div className='row justify-content-center mt-5 mb-5'>
+        <div className='col-sm-6 col-lg-4'>
+          <div className='card'>
+            <div className='card-body out-container'>
+              <div className={errors < 1 ? "out-placeholder" : "out"}>1</div>
+              <div className={errors < 2 ? "out-placeholder" : "out"}>2</div>
+              <div className={errors < 3 ? "out-placeholder" : "out"}>3</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

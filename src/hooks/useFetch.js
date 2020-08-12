@@ -14,7 +14,7 @@ export const useFetchQuestions = (amount, difficulty, category) => {
         loading: false,
       }),
     );
-  }, []);
+  }, [amount, difficulty, category]);
 
   return state;
 };

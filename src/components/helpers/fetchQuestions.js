@@ -1,11 +1,16 @@
 export const fetchQuestions = async (amount, difficulty, category) => {
   let categotyUrl = "";
+  let difficultyUrl = "";
 
   if (category !== "") {
     categotyUrl = `&category=${category}`;
   }
 
-  const url = `https://opentdb.com/api.php?amount=${amount}${categotyUrl}&difficulty=${difficulty}&type=multiple`;
+  if (difficulty !== "all") {
+    difficultyUrl = `&difficulty=${difficulty}`;
+  }
+
+  const url = `https://opentdb.com/api.php?amount=${amount}${categotyUrl}${difficultyUrl}&type=multiple`;
   console.log(url);
   const response = await fetch(url);
   const { results } = await response.json();

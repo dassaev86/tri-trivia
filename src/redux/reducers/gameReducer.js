@@ -2,12 +2,14 @@ import { types } from "../types/types";
 
 const initialState = {
   user: "Dassaev",
-  rights: 0,
-  wrongs: 0,
+  hits: 0,
+  errors: 0,
   points: 0,
   category: "",
   difficulty: "medium",
   amount: "10",
+  mode: "",
+  active: false,
 };
 
 export const gameReducer = (state = initialState, action) => {
@@ -18,6 +20,16 @@ export const gameReducer = (state = initialState, action) => {
         category: action.payload.category,
         difficulty: action.payload.difficulty,
         amount: action.payload.amount,
+        mode: action.payload.mode,
+        active: action.payload.active,
+      };
+
+    case types.gameSaveResults:
+      return {
+        ...state,
+        hits: action.payload.hits,
+        errors: action.payload.errors,
+        points: action.payload.points,
       };
 
     default:

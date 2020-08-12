@@ -23,10 +23,10 @@ const Question = ({ trivia, idx, getPoints }) => {
   const handleAnswer = (answer) => {
     if (answer === trivia.correct_answer) {
       setCorrectResponse(1);
-      getPoints(true, idx);
+      getPoints(true, trivia.difficulty);
     } else {
       setCorrectResponse(2);
-      getPoints(false, idx);
+      getPoints(false, trivia.difficulty);
     }
 
     setAlreadyAnswered(true);
@@ -34,12 +34,21 @@ const Question = ({ trivia, idx, getPoints }) => {
 
   return (
     <div
-      className='col-6 mb-5'
+      className='col-sm-12 col-lg-6 mb-5'
       style={{ justifyContent: "center", alignItems: "center" }}>
       <div className='card'>
         <div className='card-body'>
           <h5 className='card-title'>Question {idx + 1}</h5>
           <p className='card-text'>{trivia.question}</p>
+          {trivia.difficulty === "easy" && (
+            <span className='badge badge-success'>EASY</span>
+          )}
+          {trivia.difficulty === "medium" && (
+            <span className='badge badge-warning'>NORMAL</span>
+          )}
+          {trivia.difficulty === "hard" && (
+            <span className='badge badge-danger'>HARD</span>
+          )}
         </div>
 
         <ul className='list-group list-group-flush'>
