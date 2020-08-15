@@ -115,7 +115,11 @@ const StrikeoutGameScreen = () => {
         )}
 
         {qnum < amount && errors < 3 && (
-          <Question trivia={results[qnum]} idx={qnum} getPoints={getPoints} />
+          <Question
+            trivia={results[qnum]}
+            idx={qnum + 1}
+            getPoints={getPoints}
+          />
         )}
       </div>
 

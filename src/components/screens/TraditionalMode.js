@@ -63,7 +63,7 @@ const TraditionalMode = () => {
           <Question
             key={trivia.question}
             trivia={trivia}
-            idx={idx}
+            idx={idx + 1}
             getPoints={getPoints}
           />
         ))}

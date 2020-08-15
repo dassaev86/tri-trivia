@@ -1,5 +1,7 @@
 import React from "react";
 import triviaImage from "../../assets/traditional_trivia.jpg";
+import strikeoutImage from "../../assets/strikeout.jpg";
+import jeopardyImage from "../../assets/jeopardy.jpg";
 import { Link } from "react-router-dom";
 
 const MainScreen = () => {
@@ -30,7 +32,7 @@ const MainScreen = () => {
         <div className='col-sm-12 col-lg-4'>
           <div className='card' style={{ width: "18rem" }}>
             <img
-              src={triviaImage}
+              src={strikeoutImage}
               className='card-img-top'
               alt='image_traditional_trivia'
             />
@@ -50,7 +52,7 @@ const MainScreen = () => {
         <div className='col-sm-12 col-lg-4'>
           <div className='card' style={{ width: "18rem" }}>
             <img
-              src={triviaImage}
+              src={jeopardyImage}
               className='card-img-top'
               alt='image_traditional_trivia'
             />
@@ -58,11 +60,11 @@ const MainScreen = () => {
               <h5 className='card-title'>Points per Difficulty</h5>
               <p className='card-text'>
                 You get more points the higher is the difficulty. Similar to
-                Geopardy.
+                Jeopardy!.
               </p>
-              <a href='https://google.com.mx' className='btn btn-info'>
+              <Link to='/jeopardy' className='btn btn-info'>
                 Play
-              </a>
+              </Link>
             </div>
           </div>
         </div>

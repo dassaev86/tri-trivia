@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { randomizeAnswers } from "./helpers/randomizeAnswers";
 
-const Question = ({ trivia, idx, getPoints }) => {
+const Question = ({ trivia, idx, getPoints, value }) => {
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
   const [correctResponse, setCorrectResponse] = useState(0);
   const [randomAnswers, setRandomAnswers] = useState([]);
@@ -23,22 +23,20 @@ const Question = ({ trivia, idx, getPoints }) => {
   const handleAnswer = (answer) => {
     if (answer === trivia.correct_answer) {
       setCorrectResponse(1);
-      getPoints(true, trivia.difficulty);
+      getPoints(true, trivia.difficulty, value);
     } else {
       setCorrectResponse(2);
-      getPoints(false, trivia.difficulty);
+      getPoints(false, trivia.difficulty, value);
     }
 
     setAlreadyAnswered(true);
   };
 
   return (
-    <div
-      className='col-sm-12 col-lg-6 mb-5'
-      style={{ justifyContent: "center", alignItems: "center" }}>
+    <div className='col-sm-12 col-lg-12 mb-5 justify-content-center'>
       <div className='card'>
         <div className='card-body'>
-          <h5 className='card-title'>Question {idx + 1}</h5>
+          <h5 className='card-title'>Question {idx}</h5>
           <p className='card-text'>{trivia.question}</p>
           {trivia.difficulty === "easy" && (
             <span className='badge badge-success'>EASY</span>
