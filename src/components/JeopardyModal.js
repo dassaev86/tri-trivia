@@ -23,13 +23,16 @@ const JeopardyModal = () => {
     let hits = score.hits;
     let errors = score.errors;
     let points = score.points;
+    let selectedElement = document.getElementById(trivia.question);
 
     if (correct) {
       hits = hits + 1;
       points = points + value;
+      selectedElement.classList.replace("bg-primary", "bg-success");
     } else {
       errors = errors + 1;
       points = points - value;
+      selectedElement.classList.replace("bg-primary", "bg-danger");
     }
 
     const newScore = {
