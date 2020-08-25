@@ -8,6 +8,8 @@ const initialState = {
     errors: 0,
     points: 0,
   },
+  categories: [],
+  active: false,
 };
 
 export const jeopardyReducer = (state = initialState, action) => {
@@ -26,6 +28,18 @@ export const jeopardyReducer = (state = initialState, action) => {
       return {
         ...state,
         score: action.payload.score,
+      };
+
+    case types.jeopardySetRandomCategories:
+      return {
+        ...state,
+        categories: action.payload.categories,
+      };
+
+    case types.jeopardySetActive:
+      return {
+        ...state,
+        active: action.payload.active,
       };
 
     default:

@@ -3,8 +3,17 @@ import triviaImage from "../../assets/traditional_trivia.jpg";
 import strikeoutImage from "../../assets/strikeout.jpg";
 import jeopardyImage from "../../assets/jeopardy.jpg";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { startLogout } from "../../redux/actions/authActions";
 
 const MainScreen = () => {
+  const { name, logged } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(startLogout());
+  };
+
   return (
     <div className='container'>
       <h1 className='mb-lg-5'>Welcome to Trivia Game</h1>
@@ -68,6 +77,25 @@ const MainScreen = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className='row mt-5'>
+        {logged && (
+          <div className='col-12'>
+            <h4>Hola {name}</h4>
+            <button className='btn btn-danger' onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        )}
+
+        {!logged && (
+          <div className='col-12'>
+            <Link className='btn btn-success' to='/auth/login'>
+              Login
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

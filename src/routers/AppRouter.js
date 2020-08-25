@@ -1,35 +1,54 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import TraditionalMode from "../components/screens/TraditionalMode";
-import MainScreen from "../components/screens/MainScreen";
-import StrikeoutScreen from "../components/screens/StrikeoutScreen";
-import StrikeoutGameScreen from "../components/screens/StrikeoutGameScreen";
-import TraditionalOptionsScreen from "../components/screens/TraditionalOptionsScreen";
-import JeopardyScreen from "../components/screens/JeopardyScreen";
-import JeopardyGameScreen from "../components/screens/JeopardyGameScreen";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+
+import { firebase } from "../firebase/firebaseConfig";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/actions/authActions";
+import { useState } from "react";
+import TriviaRouter from "./TriviaRouter";
+import AuthRouter from "./AuthRouter";
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRouter = () => {
+  const dispatch = useDispatch();
+  const [checking, setChecking] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user?.uid) {
+        dispatch(login(user.uid, user.displayName));
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+
+      setChecking(false);
+    });
+  }, [dispatch, setChecking, setIsLoggedIn]);
+
+  if (checking) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <Router>
       <div>
         <Switch>
-          <Route
-            exact
-            path='/traditional'
-            component={TraditionalOptionsScreen}
+          <PublicRoute
+            path='/auth'
+            component={AuthRouter}
+            isLoggedIn={isLoggedIn}
           />
-          <Route exact path='/traditional/game' component={TraditionalMode} />
-          <Route exact path='/strikeout' component={StrikeoutScreen} />
-          <Route exact path='/strikeout/game' component={StrikeoutGameScreen} />
-          <Route exact path='/jeopardy' component={JeopardyScreen} />
-          <Route exact path='/jeopardy/game' component={JeopardyGameScreen} />
-          <Route exact path='/' component={MainScreen} />
-          <Redirect to='/' />
+
+          <PrivateRoute
+            path='/'
+            component={TriviaRouter}
+            isLoggedIn={isLoggedIn}
+          />
+
+          <Redirect to='auth/login' />
         </Switch>
       </div>
     </Router>

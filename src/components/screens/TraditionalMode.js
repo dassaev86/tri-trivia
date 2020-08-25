@@ -60,12 +60,15 @@ const TraditionalMode = () => {
       <h1>Traditional Trivia</h1>
       <div className='row'>
         {results.map((trivia, idx) => (
-          <Question
-            key={trivia.question}
-            trivia={trivia}
-            idx={idx + 1}
-            getPoints={getPoints}
-          />
+          <div className='col-sm-12 col-lg-6'>
+            <Question
+              key={trivia.question}
+              trivia={trivia}
+              idx={idx + 1}
+              getPoints={getPoints}
+              jeopardy={false}
+            />
+          </div>
         ))}
       </div>
 

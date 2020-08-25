@@ -4,7 +4,14 @@ export const types = {
 
   uiOpenModal: "[UI] Open Modal",
   uiCloseModal: "[UI] Close Modal",
+  uiStartLoading: "[UI] Start Loading",
+  uiFinishLoading: "[UI] Finish Loading",
 
   jeopardySetTrivia: "[Jeopardy] Set Trivia",
   jeopardySetScore: "[Jeopardy] Set Score",
+  jeopardySetActive: "[Jeopardy] Set Active",
+  jeopardySetRandomCategories: "[Jeopardy] Set Random Categories",
+
+  authLogin: "[Auth] Login",
+  authLogout: "[Auth] Logout",
 };

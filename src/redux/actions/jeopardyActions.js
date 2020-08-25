@@ -14,3 +14,17 @@ export const setScore = (score) => ({
     score,
   },
 });
+
+export const setRandomCategories = (categories) => ({
+  type: types.jeopardySetRandomCategories,
+  payload: {
+    categories,
+  },
+});
+
+export const setActive = (active) => ({
+  type: types.jeopardySetActive,
+  payload: {
+    active,
+  },
+});
