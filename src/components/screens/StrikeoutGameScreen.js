@@ -3,7 +3,10 @@ import { useFetchQuestions } from "../../hooks/useFetch";
 import Question from "../Question";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { gameSaveResults } from "../../redux/actions/gameActions";
+import {
+  saveGameResultsToDB,
+  saveGameResultsToGeneralStats,
+} from "../../redux/actions/gameActions";
 
 const StrikeoutGameScreen = () => {
   const { category, difficulty, amount, active } = useSelector(
@@ -23,7 +26,10 @@ const StrikeoutGameScreen = () => {
 
   useEffect(() => {
     if (errors === 3 || qnum >= amount) {
-      dispatch(gameSaveResults(hits, errors, points));
+      dispatch(saveGameResultsToDB(hits, errors, points, "strikeout"));
+      dispatch(
+        saveGameResultsToGeneralStats(hits, errors, points, "strikeout-mode"),
+      );
     }
   }, [hits, errors, points, qnum, amount, dispatch]);
 
@@ -65,13 +71,11 @@ const StrikeoutGameScreen = () => {
     return <h1>Espere...</h1>;
   }
 
-  console.log(qnum + " / " + amount);
-
   return (
     <div>
       <h1 className='mb-5'>Strikeout Game</h1>
 
-      <div className='row justify-content-md-center'>
+      <div className='row justify-content-center'>
         {qnum >= amount && (
           <div className='col-sm-10 col-lg-6'>
             {/* Aqui va el card de ganaste la partida */}
@@ -94,7 +98,7 @@ const StrikeoutGameScreen = () => {
         )}
 
         {errors === 3 && (
-          <div className='col-sm-10 col-lg-6'>
+          <div className='col-sm-10 col-lg-6 '>
             {/* Aqui va el card de ganaste la partida */}
             <div className='card'>
               <div className='card-header'>

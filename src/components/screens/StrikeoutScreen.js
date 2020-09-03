@@ -44,7 +44,7 @@ const StrikeoutScreen = () => {
               <p className='lead mt-5'>Good Luck!</p>
 
               <div className='row justify-content-center'>
-                <div className='col-sm-4'>
+                <div className='col-sm-6'>
                   <div className='input-group mb-3'>
                     <div className='input-group-prepend'>
                       <label

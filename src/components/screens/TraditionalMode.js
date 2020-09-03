@@ -3,7 +3,10 @@ import Question from "../Question";
 import { useFetchQuestions } from "../../hooks/useFetch";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { gameSaveResults } from "../../redux/actions/gameActions";
+import {
+  saveGameResultsToDB,
+  saveGameResultsToGeneralStats,
+} from "../../redux/actions/gameActions";
 import { useEffect } from "react";
 
 const TraditionalMode = () => {
@@ -13,14 +16,22 @@ const TraditionalMode = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   console.log(amount, difficulty, category);
-  const { results } = useFetchQuestions(amount, difficulty, category);
+  const { results } = useFetchQuestions(
+    amount,
+    difficulty,
+    category,
+    "traditional",
+  );
   const [points, setPoints] = useState(0);
   const [hits, setHits] = useState(0);
   const [errors, setErrors] = useState(0);
 
   useEffect(() => {
     if ((hits + errors).toString() === amount) {
-      dispatch(gameSaveResults(hits, errors, points));
+      dispatch(saveGameResultsToDB(hits, errors, points, "traditional"));
+      dispatch(
+        saveGameResultsToGeneralStats(hits, errors, points, "traditional-mode"),
+      );
     }
   }, [hits, errors, points, amount, dispatch]);
 
@@ -60,9 +71,8 @@ const TraditionalMode = () => {
       <h1>Traditional Trivia</h1>
       <div className='row'>
         {results.map((trivia, idx) => (
-          <div className='col-sm-12 col-lg-6'>
+          <div key={trivia.question} className='col-sm-12 col-lg-6'>
             <Question
-              key={trivia.question}
               trivia={trivia}
               idx={idx + 1}
               getPoints={getPoints}

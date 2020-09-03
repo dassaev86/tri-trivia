@@ -6,12 +6,33 @@ import JeopardyModal from "../JeopardyModal";
 import { setTrivia } from "../../redux/actions/jeopardyActions";
 import { Link, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
+import {
+  saveGameResultsToDB,
+  saveGameResultsToGeneralStats,
+} from "../../redux/actions/gameActions";
 
 const JeopardyGameScreen = () => {
   const { categories } = useSelector((state) => state.jeopardy);
   const dispatch = useDispatch();
   const { score, active } = useSelector((state) => state.jeopardy);
   const history = useHistory();
+
+  useEffect(() => {
+    if (score.hits + score.errors === 25) {
+      dispatch(
+        saveGameResultsToDB(score.hits, score.errors, score.points, "jeopardy"),
+      );
+      dispatch(
+        saveGameResultsToGeneralStats(
+          score.hits,
+          score.errors,
+          score.points,
+          "jeopardy-mode",
+        ),
+      );
+    }
+  }, [score, dispatch]);
 
   if (!active) {
     history.replace("/jeopardy");

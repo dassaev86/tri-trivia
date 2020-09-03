@@ -1,4 +1,5 @@
 import { types } from "../types/types";
+import { db } from "../../firebase/firebaseConfig";
 
 export const gameSelectedOptions = (
   category,
@@ -25,3 +26,43 @@ export const gameSaveResults = (hits, errors, points) => ({
     points,
   },
 });
+
+export const saveGameResultsToDB = (hits, errors, points, gameMode) => {
+  return async (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
+    const newRecord = {
+      hits,
+      errors,
+      points,
+      gameMode,
+      date: Date.now(),
+    };
+
+    const doc = await db.collection(uid).add(newRecord);
+    console.log(doc);
+  };
+};
+
+export const saveGameResultsToGeneralStats = (
+  hits,
+  errors,
+  points,
+  gameMode,
+) => {
+  return async (dispatch, getState) => {
+    const user = getState().auth;
+
+    const newRecord = {
+      userUid: user.uid,
+      username: user.name,
+      hits,
+      errors,
+      points,
+      date: Date.now(),
+    };
+
+    const doc = await db.collection(gameMode).add(newRecord);
+    console.log(doc);
+  };
+};

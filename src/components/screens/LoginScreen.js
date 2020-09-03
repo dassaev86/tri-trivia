@@ -26,6 +26,7 @@ const LoginScreen = () => {
   const handleGoogleLogin = () => {
     dispatch(startGoogleLogin());
   };
+
   return (
     <div>
       <div className='container'>

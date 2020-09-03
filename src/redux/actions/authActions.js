@@ -1,4 +1,8 @@
-import { firebase, googleAuthProvider } from "../../firebase/firebaseConfig";
+import {
+  firebase,
+  googleAuthProvider,
+  db,
+} from "../../firebase/firebaseConfig";
 import { types } from "../types/types";
 import { startLoading, finishLoading } from "./uiActions";
 import Swal from "sweetalert2";
@@ -71,4 +75,27 @@ export const startLogout = () => {
 
 export const logout = () => ({
   type: types.authLogout,
+});
+
+export const startLoadUserStats = (uid) => {
+  return async (dispatch) => {
+    const userStatsSnap = await db
+      .collection(uid)
+      .orderBy("date", "desc")
+      .get();
+    const userStats = [];
+
+    userStatsSnap.forEach((game) => {
+      userStats.push(game.data());
+    });
+
+    dispatch(loadUserStats(userStats));
+  };
+};
+
+const loadUserStats = (userStats) => ({
+  type: types.authLoadUserStats,
+  payload: {
+    userStats: userStats,
+  },
 });
