@@ -8,13 +8,13 @@ const initialState = {
 
 export const statsReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case types.authLogin:
-    //   return {
-    //     ...state,
-    //     uid: action.payload.uid,
-    //     name: action.payload.displayName,
-    //     logged: true,
-    //   };
+    case types.statsSetRecords:
+      return {
+        ...state,
+        traditional: action.payload.traditionalRecords,
+        strikeout: action.payload.strikeoutRecords,
+        jeopardy: action.payload.jeopardyRecords,
+      };
 
     default:
       return state;

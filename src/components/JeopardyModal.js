@@ -56,14 +56,15 @@ const JeopardyModal = () => {
       style={customStyles}
       contentLabel='Example Modal'>
       <div className='row justify-content-center'>
-        <Question
-          trivia={trivia}
-          idx={` x ${(idx + 1) * 100}`}
-          getPoints={getPoints}
-          value={(idx + 1) * 100}
-          jeopardy={true}
-        />
-
+        <div className='col-12'>
+          <Question
+            trivia={trivia}
+            idx={` x ${(idx + 1) * 100}`}
+            getPoints={getPoints}
+            value={(idx + 1) * 100}
+            jeopardy={true}
+          />
+        </div>
         {showButtonClose && (
           <button className='btn btn-warning' onClick={handleCloseModal}>
             Next Question

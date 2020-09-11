@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 const MainScreen = () => {
   return (
     <div className='container'>
-      <div className='row mt-5'>
-        <div className='col-sm-12 col-lg-4'>
-          <div className='card' style={{ width: "18rem" }}>
+      <div className='row justify-content-center'>
+        <div className=' col-12 col-sm-6 col-lg-4 mt-5'>
+          <div className='card'>
             <img
               src={triviaImage}
               className='card-img-top'
@@ -27,15 +27,15 @@ const MainScreen = () => {
           </div>
         </div>
 
-        <div className='col-sm-12 col-lg-4'>
-          <div className='card' style={{ width: "18rem" }}>
+        <div className=' col-12 col-sm-6 col-lg-4 mt-5'>
+          <div className='card'>
             <img
               src={strikeoutImage}
               className='card-img-top'
               alt='image_traditional_trivia'
             />
             <div className='card-body'>
-              <h5 className='card-title'>Three Strike Out Mode</h5>
+              <h5 className='card-title'> Strikeout Mode</h5>
               <p className='card-text'>
                 Answer all the questions you can until you get 3 mistakes, the
                 you're out!
@@ -47,18 +47,18 @@ const MainScreen = () => {
           </div>
         </div>
 
-        <div className='col-sm-12 col-lg-4'>
-          <div className='card' style={{ width: "18rem" }}>
+        <div className='col-12 col-sm-6 col-lg-4 mt-5'>
+          <div className='card'>
             <img
               src={jeopardyImage}
               className='card-img-top'
               alt='image_traditional_trivia'
             />
             <div className='card-body'>
-              <h5 className='card-title'>Points per Difficulty</h5>
+              <h5 className='card-title'>Jeopardy Mode</h5>
               <p className='card-text'>
-                You get more points the higher is the difficulty. Similar to
-                Jeopardy!.
+                If you answer correctly you win the points, otherwise you lose
+                them, similar to jeopardy.
               </p>
               <Link to='/jeopardy' className='btn btn-info'>
                 Play

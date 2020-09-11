@@ -9,6 +9,7 @@ import TriviaRouter from "./TriviaRouter";
 import AuthRouter from "./AuthRouter";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
+import Loading from "../components/Loading";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const AppRouter = () => {
   }, [dispatch, setChecking, setIsLoggedIn]);
 
   if (checking) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

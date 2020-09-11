@@ -4,6 +4,7 @@ import moment from "moment";
 import { startLoadUserStats } from "../../redux/actions/authActions";
 import { sortStats } from "../helpers/sortedStats";
 import UserTopScoreTable from "../UserTopScoreTable";
+import Loading from "../Loading";
 
 const UserStatsScreen = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const UserStatsScreen = () => {
   // GET TOP 5 JEOPARDY
 
   if (stats.length === 0) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

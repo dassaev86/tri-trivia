@@ -4,7 +4,7 @@ export const customStyles = {
     left: "50vw",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%%",
+    marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     background: "rgba(0, 0, 0, 0.7)",
   },

@@ -8,6 +8,7 @@ import {
   saveGameResultsToGeneralStats,
 } from "../../redux/actions/gameActions";
 import { useEffect } from "react";
+import Loading from "../Loading";
 
 const TraditionalMode = () => {
   const { amount, difficulty, category, active } = useSelector(
@@ -63,7 +64,7 @@ const TraditionalMode = () => {
   }
 
   if (results.length === 0) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

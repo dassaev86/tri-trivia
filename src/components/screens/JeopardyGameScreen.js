@@ -11,9 +11,11 @@ import {
   saveGameResultsToDB,
   saveGameResultsToGeneralStats,
 } from "../../redux/actions/gameActions";
+import Loading from "../Loading";
 
 const JeopardyGameScreen = () => {
   const { categories } = useSelector((state) => state.jeopardy);
+  const { name } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { score, active } = useSelector((state) => state.jeopardy);
   const history = useHistory();
@@ -65,6 +67,22 @@ const JeopardyGameScreen = () => {
     selectedElement.classList.add("alreadyAnswered");
   };
 
+  const getCategoryTitle = (category) => {
+    let categoryTitle = category;
+    const entertainment = category.includes("Entertainment:");
+    const science = category.includes("Science:");
+
+    if (entertainment) {
+      categoryTitle = category.substring(15, 50);
+    }
+
+    if (science) {
+      categoryTitle = category.substring(9, 50);
+    }
+
+    return categoryTitle;
+  };
+
   if (
     category1.length === 0 ||
     category2.length === 0 ||
@@ -72,73 +90,26 @@ const JeopardyGameScreen = () => {
     category4.length === 0 ||
     category5.length === 0
   ) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
     <div>
-      <div
-        className='row justify-content-center mt-5'
-        style={{ marginBottom: "-70px" }}>
-        <div className='col-2'>
-          <div
-            className='card bg-warning mb-3'
-            style={{ maxWidth: "18rem", height: "70%" }}>
-            <div className='card-category'>
-              <h5>{category1[0].category}</h5>
-            </div>
-          </div>
-        </div>
-
-        <div className='col-2'>
-          <div
-            className='card bg-warning mb-3'
-            style={{ maxWidth: "18rem", height: "70%" }}>
-            <div className='card-category'>
-              <h5>{category2[0].category}</h5>
-            </div>
-          </div>
-        </div>
-
-        <div className='col-2'>
-          <div
-            className='card bg-warning mb-3'
-            style={{ maxWidth: "18rem", height: "70%" }}>
-            <div className='card-category'>
-              <h5>{category3[0].category}</h5>
-            </div>
-          </div>
-        </div>
-
-        <div className='col-2'>
-          <div
-            className='card bg-warning mb-3'
-            style={{ maxWidth: "18rem", height: "70%" }}>
-            <div className='card-category'>
-              <h5>{category4[0].category}</h5>
-            </div>
-          </div>
-        </div>
-
-        <div className='col-2'>
-          <div
-            className='card bg-warning mb-3'
-            style={{ maxWidth: "18rem", height: "70%" }}>
-            <div className='card-category'>
-              <h5>{category5[0].category}</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
+      <div className='container'>
         <div className='row justify-content-center mt-5'>
-          <div className='col-2'>
-            {/* <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
-              <div className='card-body'>
-                <h5 className='card-title'>{category1[0].category}</h5>
+          <div className='col-lg-2 col-sm-4 col-4'>
+            {/* Aqui las pruebas para el card del título */}
+            <div
+              className='card bg-warning mb-3'
+              style={{ maxWidth: "18rem", minHeight: "50px" }}>
+              <div className='card-category' style={{ height: "80px" }}>
+                <h5 className='text-wrap'>
+                  {getCategoryTitle(window.atob(category1[0].category))}
+                </h5>
               </div>
-            </div> */}
+            </div>
+            {/* Aqui las pruebas para el card del título */}
+
             {category1.map((question, index) => (
               <div
                 key={question.question}
@@ -146,19 +117,25 @@ const JeopardyGameScreen = () => {
                 className='card bg-primary mb-3 '
                 onClick={() => handleSelectQuestion(question, index)}
                 style={{ maxWidth: "18rem" }}>
-                <div className='card-body' style={{ cursor: "pointer" }}>
-                  <h4 className='card-title'>{100 * (index + 1)}</h4>
+                <div
+                  className='card-body'
+                  style={{ cursor: "pointer", height: "60px" }}>
+                  <h6 className='card-title'>{100 * (index + 1)}</h6>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className='col-2'>
-            {/* <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
-              <div className='card-body justify-content-center'>
-                <h5 className='card-title'>{category2[0].category}</h5>
+          <div className='col-lg-2 col-sm-4 col-4'>
+            {/* Aqui las pruebas para el card del título */}
+            <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
+              <div className='card-category' style={{ height: "80px" }}>
+                <h5 className='text-wrap'>
+                  {getCategoryTitle(window.atob(category2[0].category))}
+                </h5>
               </div>
-            </div> */}
+            </div>
+            {/* Aqui las pruebas para el card del título */}
             {category2.map((question, index) => (
               <div
                 key={question.question}
@@ -166,19 +143,25 @@ const JeopardyGameScreen = () => {
                 className='card bg-primary mb-3 '
                 onClick={() => handleSelectQuestion(question, index)}
                 style={{ maxWidth: "18rem" }}>
-                <div className='card-body' style={{ cursor: "pointer" }}>
-                  <h4 className='card-title'>{100 * (index + 1)}</h4>
+                <div
+                  className='card-body'
+                  style={{ cursor: "pointer", height: "60px" }}>
+                  <h6 className='card-title'>{100 * (index + 1)}</h6>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className='col-2'>
-            {/* <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
-              <div className='card-body'>
-                <h5 className='card-title'>{category3[0].category}</h5>
+          <div className='col-lg-2 col-sm-4 col-4'>
+            {/* Aqui las pruebas para el card del título */}
+            <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
+              <div className='card-category' style={{ height: "80px" }}>
+                <h5 className='text-wrap'>
+                  {getCategoryTitle(window.atob(category3[0].category))}
+                </h5>
               </div>
-            </div> */}
+            </div>
+            {/* Aqui las pruebas para el card del título */}
             {category3.map((question, index) => (
               <div
                 key={question.question}
@@ -186,19 +169,25 @@ const JeopardyGameScreen = () => {
                 className='card bg-primary mb-3 '
                 onClick={() => handleSelectQuestion(question, index)}
                 style={{ maxWidth: "18rem" }}>
-                <div className='card-body' style={{ cursor: "pointer" }}>
-                  <h4 className='card-title'>{100 * (index + 1)}</h4>
+                <div
+                  className='card-body'
+                  style={{ cursor: "pointer", height: "60px" }}>
+                  <h6 className='card-title'>{100 * (index + 1)}</h6>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className='col-2'>
-            {/* <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
-              <div className='card-body'>
-                <h5 className='card-title'>{category4[0].category}</h5>
+          <div className='col-lg-2 col-sm-4 col-4'>
+            {/* Aqui las pruebas para el card del título */}
+            <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
+              <div className='card-category' style={{ height: "80px" }}>
+                <h5 className='text-wrap'>
+                  {getCategoryTitle(window.atob(category4[0].category))}
+                </h5>
               </div>
-            </div> */}
+            </div>
+            {/* Aqui las pruebas para el card del título */}
             {category4.map((question, index) => (
               <div
                 key={question.question}
@@ -206,19 +195,25 @@ const JeopardyGameScreen = () => {
                 className='card bg-primary mb-3 '
                 onClick={() => handleSelectQuestion(question, index)}
                 style={{ maxWidth: "18rem" }}>
-                <div className='card-body' style={{ cursor: "pointer" }}>
-                  <h4 className='card-title'>{100 * (index + 1)}</h4>
+                <div
+                  className='card-body'
+                  style={{ cursor: "pointer", height: "60px" }}>
+                  <h6 className='card-title'>{100 * (index + 1)}</h6>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className='col-2'>
-            {/* <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
-              <div className='card-body'>
-                <h5 className='card-title'>{category5[0].category}</h5>
+          <div className='col-lg-2 col-sm-4 col-4'>
+            {/* Aqui las pruebas para el card del título */}
+            <div className='card bg-warning mb-3' style={{ maxWidth: "18rem" }}>
+              <div className='card-category' style={{ height: "80px" }}>
+                <h5 className='text-wrap'>
+                  {getCategoryTitle(window.atob(category5[0].category))}
+                </h5>
               </div>
-            </div> */}
+            </div>
+            {/* Aqui las pruebas para el card del título */}
             {category5.map((question, index) => (
               <div
                 key={question.question}
@@ -226,8 +221,10 @@ const JeopardyGameScreen = () => {
                 className='card bg-primary mb-3 '
                 onClick={() => handleSelectQuestion(question, index)}
                 style={{ maxWidth: "18rem" }}>
-                <div className='card-body' style={{ cursor: "pointer" }}>
-                  <h4 className='card-title'>{100 * (index + 1)}</h4>
+                <div
+                  className='card-body'
+                  style={{ cursor: "pointer", height: "60px" }}>
+                  <h6 className='card-title'>{100 * (index + 1)}</h6>
                 </div>
               </div>
             ))}
@@ -239,7 +236,7 @@ const JeopardyGameScreen = () => {
             <div className='col-sm-12 col-lg-6'>
               <div className='card'>
                 <div className='card-header'>
-                  <h4>Dassaev</h4>
+                  <h4>{name}</h4>
                 </div>
                 <div className='card-body'>
                   <h2 className='card-text'> Points: {score.points} </h2>

@@ -12,24 +12,47 @@ const Question = ({ trivia, idx, getPoints, value, jeopardy }) => {
   }, [idx]);
 
   useEffect(() => {
+    const decodedCorrectAnswer = window.atob(trivia.correct_answer);
+    const decodedIncorrectAnsers = [];
+
+    trivia.incorrect_answers.forEach((incorrect) => {
+      decodedIncorrectAnsers.push(window.atob(incorrect));
+    });
+
     const randomizeResp = randomizeAnswers(
-      trivia.correct_answer,
-      trivia.incorrect_answers,
+      decodedCorrectAnswer,
+      decodedIncorrectAnsers,
     );
 
     setRandomAnswers(randomizeResp);
   }, [trivia.correct_answer, trivia.incorrect_answers]);
 
   const handleAnswer = (answer) => {
-    if (answer === trivia.correct_answer) {
+    if (answer === window.atob(trivia.correct_answer)) {
       setCorrectResponse(1);
-      getPoints(true, trivia.difficulty, value);
+      getPoints(true, window.atob(trivia.difficulty), value);
     } else {
       setCorrectResponse(2);
-      getPoints(false, trivia.difficulty, value);
+      getPoints(false, window.atob(trivia.difficulty), value);
     }
 
     setAlreadyAnswered(true);
+  };
+
+  const getCategoryTitle = (category) => {
+    let categoryTitle = category;
+    const entertainment = category.includes("Entertainment:");
+    const science = category.includes("Science:");
+
+    if (entertainment) {
+      categoryTitle = category.substring(15, 50);
+    }
+
+    if (science) {
+      categoryTitle = category.substring(9, 50);
+    }
+
+    return categoryTitle;
   };
 
   return (
@@ -38,17 +61,19 @@ const Question = ({ trivia, idx, getPoints, value, jeopardy }) => {
         <div className='card-body '>
           <h5 className='card-title'>
             {" "}
-            {jeopardy ? `${trivia.category} ${idx}` : `Question ${idx}`}{" "}
+            {jeopardy
+              ? `${getCategoryTitle(window.atob(trivia.category))} ${idx}`
+              : `Question ${idx}`}{" "}
           </h5>
-          <p className='card-text'>{trivia.question}</p>
+          <p className='card-text'>{window.atob(trivia.question)}</p>
 
-          {trivia.difficulty === "easy" && !jeopardy && (
+          {window.atob(trivia.difficulty) === "easy" && !jeopardy && (
             <span className='badge badge-success'>EASY</span>
           )}
-          {trivia.difficulty === "medium" && !jeopardy && (
+          {window.atob(trivia.difficulty) === "medium" && !jeopardy && (
             <span className='badge badge-warning'>NORMAL</span>
           )}
-          {trivia.difficulty === "hard" && !jeopardy && (
+          {window.atob(trivia.difficulty) === "hard" && !jeopardy && (
             <span className='badge badge-danger'>HARD</span>
           )}
         </div>
@@ -57,7 +82,8 @@ const Question = ({ trivia, idx, getPoints, value, jeopardy }) => {
           <li className='list-group-item'>
             <button
               className={
-                randomAnswers[0] === trivia.correct_answer && alreadyAnswered
+                randomAnswers[0] === window.atob(trivia.correct_answer) &&
+                alreadyAnswered
                   ? "btn btn-success"
                   : "btn btn-primary"
               }
@@ -69,7 +95,8 @@ const Question = ({ trivia, idx, getPoints, value, jeopardy }) => {
           <li className='list-group-item'>
             <button
               className={
-                randomAnswers[1] === trivia.correct_answer && alreadyAnswered
+                randomAnswers[1] === window.atob(trivia.correct_answer) &&
+                alreadyAnswered
                   ? "btn btn-success"
                   : "btn btn-primary"
               }
@@ -81,7 +108,8 @@ const Question = ({ trivia, idx, getPoints, value, jeopardy }) => {
           <li className='list-group-item'>
             <button
               className={
-                randomAnswers[2] === trivia.correct_answer && alreadyAnswered
+                randomAnswers[2] === window.atob(trivia.correct_answer) &&
+                alreadyAnswered
                   ? "btn btn-success"
                   : "btn btn-primary"
               }
@@ -93,7 +121,8 @@ const Question = ({ trivia, idx, getPoints, value, jeopardy }) => {
           <li className='list-group-item'>
             <button
               className={
-                randomAnswers[3] === trivia.correct_answer && alreadyAnswered
+                randomAnswers[3] === window.atob(trivia.correct_answer) &&
+                alreadyAnswered
                   ? "btn btn-success"
                   : "btn btn-primary"
               }

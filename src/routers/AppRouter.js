@@ -21,6 +21,8 @@ import PublicRoute from "./PublicRoute";
 import AuthRouter from "./AuthRouter";
 import Navbar from "../components/Navbar";
 import UserStatsScreen from "../components/screens/UserStatsScreen";
+import RecordsScreen from "../components/screens/RecordsScreen";
+import Loading from "../components/Loading";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const AppRouter = () => {
   }, [dispatch, setChecking]);
 
   if (checking) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
@@ -63,6 +65,7 @@ const AppRouter = () => {
             <Route exact path='/jeopardy' component={JeopardyScreen} />
             <Route exact path='/jeopardy/game' component={JeopardyGameScreen} />
             <Route exact path='/myStats' component={UserStatsScreen} />
+            <Route exact path='/records' component={RecordsScreen} />
             <PublicRoute
               path='/auth'
               component={AuthRouter}

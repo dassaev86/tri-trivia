@@ -7,6 +7,7 @@ import {
   saveGameResultsToDB,
   saveGameResultsToGeneralStats,
 } from "../../redux/actions/gameActions";
+import Loading from "../Loading";
 
 const StrikeoutGameScreen = () => {
   const { category, difficulty, amount, active } = useSelector(
@@ -68,7 +69,7 @@ const StrikeoutGameScreen = () => {
   }
 
   if (results.length === 0) {
-    return <h1>Espere...</h1>;
+    return <Loading />;
   }
 
   return (
@@ -99,7 +100,6 @@ const StrikeoutGameScreen = () => {
 
         {errors === 3 && (
           <div className='col-sm-10 col-lg-6 '>
-            {/* Aqui va el card de ganaste la partida */}
             <div className='card'>
               <div className='card-header'>
                 You managed to reach question {qnum + 1}. Keep trying!
@@ -118,16 +118,16 @@ const StrikeoutGameScreen = () => {
           </div>
         )}
 
-        <div className='col-sm-12 col-lg-6'>
-          {qnum < amount && errors < 3 && (
+        {qnum < amount && errors < 3 && (
+          <div className='col-sm-12 col-lg-6'>
             <Question
               trivia={results[qnum]}
               idx={qnum + 1}
               getPoints={getPoints}
               jeopardy={false}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {qnum < amount && errors < 3 && (
