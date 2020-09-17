@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   startLoginEmailPassword,
   startGoogleLogin,
+  startFacebookLogin,
 } from "../../redux/actions/authActions";
 import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
@@ -25,6 +26,10 @@ const LoginScreen = () => {
 
   const handleGoogleLogin = () => {
     dispatch(startGoogleLogin());
+  };
+
+  const handleFacebookLogin = () => {
+    dispatch(startFacebookLogin());
   };
 
   return (
@@ -79,7 +84,9 @@ const LoginScreen = () => {
 
             <div className='card mt-5'>
               <div className='card-body'>
-                <button className='btn btn-info btn-block mt-2'>
+                <button
+                  className='btn btn-info btn-block mt-2'
+                  onClick={handleFacebookLogin}>
                   Login with Facebook
                 </button>
                 <button

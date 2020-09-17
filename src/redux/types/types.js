@@ -15,6 +15,8 @@ export const types = {
   authLogin: "[Auth] Login",
   authLogout: "[Auth] Logout",
   authLoadUserStats: "[Auth] Load User Stats",
+  authUpdateProfile: "[Auth] Update Profile",
+  authUpdateProfilePicture: "[Auth] Update Profile Picture",
 
   statsSetRecords: "[Stats] Set Records",
 };

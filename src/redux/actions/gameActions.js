@@ -56,6 +56,7 @@ export const saveGameResultsToGeneralStats = (
     const newRecord = {
       userUid: user.uid,
       username: user.name,
+      photoUrl: user.photoUrl,
       hits,
       errors,
       points,

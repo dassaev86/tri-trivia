@@ -2,10 +2,12 @@ import {
   firebase,
   googleAuthProvider,
   db,
+  facebookAuthProvider,
 } from "../../firebase/firebaseConfig";
 import { types } from "../types/types";
 import { startLoading, finishLoading } from "./uiActions";
 import Swal from "sweetalert2";
+import { storage } from "../../firebase/firebaseConfig";
 
 export const startLoginEmailPassword = (email, password) => {
   return (dispatch) => {
@@ -37,7 +39,8 @@ export const startRegisterWithEmailAndPassword = (
       .then(async ({ user }) => {
         await user.updateProfile({ displayName: username });
         console.log(user);
-        dispatch(login(user.uid, user.displayName));
+        // dispatch(createUserInFirestore(user.uid, username, user.photoURL));
+        dispatch(login(user.uid, user.displayName, user.photoURL));
       })
       .catch((err) => {
         console.log(err);
@@ -46,22 +49,50 @@ export const startRegisterWithEmailAndPassword = (
   };
 };
 
+// const createUserInFirestore = (uid, username, photoUrl) => {
+//   return async () => {
+//     await db.collection("users").add({
+//       uid,
+//       username,
+//       photoUrl,
+//     });
+//   };
+// };
+
 export const startGoogleLogin = () => {
   return (dispatch) => {
     firebase
       .auth()
       .signInWithPopup(googleAuthProvider)
       .then(({ user }) => {
-        dispatch(login(user.uid, user.displayName));
+        // dispatch(
+        //   createUserInFirestore(user.uid, user.displayName, user.photoURL),
+        // );
+        dispatch(login(user.uid, user.displayName, user.photoURL));
       });
   };
 };
 
-export const login = (uid, displayName) => ({
+export const startFacebookLogin = () => {
+  return (dispatch) => {
+    firebase
+      .auth()
+      .signInWithPopup(facebookAuthProvider)
+      .then(({ user }) => {
+        // dispatch(
+        //   createUserInFirestore(user.uid, user.displayName, user.photoURL),
+        // );
+        dispatch(login(user.uid, user.displayName, user.photoURL));
+      });
+  };
+};
+
+export const login = (uid, displayName, photoUrl) => ({
   type: types.authLogin,
   payload: {
     uid,
     displayName,
+    photoUrl,
   },
 });
 
@@ -97,5 +128,110 @@ const loadUserStats = (userStats) => ({
   type: types.authLoadUserStats,
   payload: {
     userStats: userStats,
+  },
+});
+
+export const changeUsername = (username) => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser;
+    console.log(username);
+
+    if (
+      user.displayName !== username &&
+      username !== "" &&
+      username?.length > 3
+    ) {
+      user
+        .updateProfile({
+          displayName: username,
+        })
+        .then(() => {
+          Swal.fire(
+            "Updated sucessfuly",
+            "Your username has been updated",
+            "success",
+          );
+
+          dispatch(updateProfile(username));
+          dispatch(updateUsersCollection(user.uid, username, user.photoURL));
+        })
+        .catch((err) => {
+          Swal.fire("Error", err, "error");
+        });
+    }
+  };
+};
+
+export const changePhoto = (image) => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser;
+
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            user
+              .updateProfile({
+                photoURL: url,
+              })
+              .then(() => {
+                Swal.fire(
+                  "Updated sucessfuly",
+                  "Your profile picture has been updated",
+                  "success",
+                );
+
+                dispatch(updateProfilePicture(url));
+                dispatch(
+                  updateUsersCollection(user.uid, user.displayName, url),
+                );
+              })
+              .catch((err) => {
+                Swal.fire("Error", err, "error");
+              });
+          });
+      },
+    );
+  };
+};
+
+const updateUsersCollection = (uid, username, photoUrl) => {
+  return () => {
+    db.collection("users")
+      .doc(`${uid}`)
+      .update({
+        uid,
+        username,
+        photoUrl,
+      })
+      .then(() => {
+        console.log("User Updated");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+const updateProfile = (username) => ({
+  type: types.authUpdateProfile,
+  payload: {
+    username,
+  },
+});
+
+const updateProfilePicture = (photoURL) => ({
+  type: types.authUpdateProfilePicture,
+  payload: {
+    photoURL,
   },
 });

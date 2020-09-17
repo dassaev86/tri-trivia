@@ -28,7 +28,7 @@ const Navbar = () => {
       </button>
 
       <div className='collapse navbar-collapse' id='navbarHiddenContent'>
-        <ul className='navbar-nav mr-auto align-items-start'>
+        <ul className='navbar-nav mr-auto'>
           <li className='nav-item'>
             <NavLink
               className='nav-link'
@@ -76,22 +76,21 @@ const Navbar = () => {
         </ul>
 
         <div className='form-inline my-2 my-lg-0'>
+          {logged && <h5>Welcome, {name} </h5>}
+
           {logged ? (
-            <div style={{ flexDirection: "column" }}>
-              <Link
-                className='btn btn-block btn-danger'
-                to='/'
-                onClick={handleLogout}>
-                Logout
-              </Link>
-              <p> Welcome, {name} </p>
-            </div>
+            <Link
+              className='btn btn-danger my-2 my-sm-0 ml-3'
+              to='/'
+              onClick={handleLogout}>
+              Logout
+            </Link>
           ) : (
-            <div style={{ flexDirection: "column" }}>
-              <Link className='btn btn-block btn-success' to='/auth/login'>
-                Login
-              </Link>
-            </div>
+            <Link
+              className='btn btn-success my-2 my-sm-0 ml-3'
+              to='/auth/login'>
+              Login
+            </Link>
           )}
         </div>
       </div>

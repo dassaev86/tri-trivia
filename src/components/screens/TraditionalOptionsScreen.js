@@ -37,7 +37,8 @@ const TraditionalOptionsScreen = () => {
         <div className='col-sm-10 col-lg-8'>
           <div className='jumbotron'>
             <div className='container'>
-              <h1 className='display-4 mb-3'>Traditional Mode</h1>
+              <h1>Traditional Mode</h1>
+              <h5 className='display-6 mt-5'>How to Play</h5>
               <p className='lead text-justify'>
                 The traditional mode is a trivia where you must answer 10, 15 or
                 20 questions according to your selections. You can select the

@@ -22,7 +22,21 @@ const RecordsTable = ({ records }) => {
               key={game.date}
               className={game.userUid === uid ? "bg-primary" : undefined}>
               <td>{index + 1}</td>
-              <td>{game.username}</td>
+              <td>
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <img
+                    src={game.photoUrl}
+                    className='img-thumbnail'
+                    alt='profile pic'
+                    style={{
+                      width: "30px",
+                      maxHeight: "30px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  {game.username}
+                </div>
+              </td>
               <td>{moment(game.date).fromNow()}</td>
               <th scope='row'>{game.points} </th>
             </tr>

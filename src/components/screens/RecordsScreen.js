@@ -29,22 +29,22 @@ const RecordsScreen = () => {
 
   return (
     <div className='container'>
-      <div className='row'>
-        <div className='col-sm-12 col-lg-4 mt-5'>
+      <div className='row justify-content-center'>
+        <div className='col-12 col-sm-12 col-lg-8 mt-5'>
           <div>
             <h5>Traditional Mode Top 10</h5>
           </div>
           <RecordsTable records={traditionalTop} />
         </div>
 
-        <div className='col-sm-12 col-lg-4 mt-5'>
+        <div className='col-12 col-sm-10 col-lg-8 mt-5'>
           <div>
             <h5>Strikeout Mode Top 10</h5>
           </div>
           <RecordsTable records={strikeoutTop} />
         </div>
 
-        <div className='col-sm-12 col-lg-4 mt-5'>
+        <div className='col-12 col-sm-10 col-lg-8 mt-5'>
           <div>
             <h5>Jeopardy Mode Top 10</h5>
           </div>

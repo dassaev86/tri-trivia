@@ -29,7 +29,7 @@ const JeopardyScreen = () => {
         <div className='col-sm-10 col-lg-8'>
           <div className='jumbotron'>
             <div className='container'>
-              <h1>Jeopardy Screen</h1>
+              <h1>Jeopardy Mode</h1>
               <h5 className='display-6 mt-5'>How to Play</h5>
               <p className='lead text-justify'>
                 In jeopardy mode you will have a selection of 5 topics with 5

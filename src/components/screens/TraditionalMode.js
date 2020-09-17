@@ -14,6 +14,7 @@ const TraditionalMode = () => {
   const { amount, difficulty, category, active } = useSelector(
     (state) => state.game,
   );
+  const { logged } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
   console.log(amount, difficulty, category);
@@ -28,13 +29,13 @@ const TraditionalMode = () => {
   const [errors, setErrors] = useState(0);
 
   useEffect(() => {
-    if ((hits + errors).toString() === amount) {
+    if ((hits + errors).toString() === amount && logged) {
       dispatch(saveGameResultsToDB(hits, errors, points, "traditional"));
       dispatch(
         saveGameResultsToGeneralStats(hits, errors, points, "traditional-mode"),
       );
     }
-  }, [hits, errors, points, amount, dispatch]);
+  }, [hits, errors, points, amount, dispatch, logged]);
 
   const getPoints = (correct, difficulty) => {
     if (correct) {

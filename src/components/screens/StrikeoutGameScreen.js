@@ -13,6 +13,7 @@ const StrikeoutGameScreen = () => {
   const { category, difficulty, amount, active } = useSelector(
     (state) => state.game,
   );
+  const { logged } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
   console.log(category, difficulty, amount);
@@ -26,13 +27,13 @@ const StrikeoutGameScreen = () => {
   const [next, setNext] = useState(true);
 
   useEffect(() => {
-    if (errors === 3 || qnum >= amount) {
+    if ((errors === 3 || qnum >= amount) && logged) {
       dispatch(saveGameResultsToDB(hits, errors, points, "strikeout"));
       dispatch(
         saveGameResultsToGeneralStats(hits, errors, points, "strikeout-mode"),
       );
     }
-  }, [hits, errors, points, qnum, amount, dispatch]);
+  }, [hits, errors, points, qnum, amount, dispatch, logged]);
 
   const getPoints = (correct, difficulty) => {
     if (correct) {
@@ -74,9 +75,7 @@ const StrikeoutGameScreen = () => {
 
   return (
     <div>
-      <h1 className='mb-5'>Strikeout Game</h1>
-
-      <div className='row justify-content-center'>
+      <div className='row justify-content-center mt-3'>
         {qnum >= amount && (
           <div className='col-sm-10 col-lg-6'>
             {/* Aqui va el card de ganaste la partida */}

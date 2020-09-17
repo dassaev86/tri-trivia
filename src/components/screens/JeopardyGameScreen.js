@@ -15,13 +15,13 @@ import Loading from "../Loading";
 
 const JeopardyGameScreen = () => {
   const { categories } = useSelector((state) => state.jeopardy);
-  const { name } = useSelector((state) => state.auth);
+  const { name, logged } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { score, active } = useSelector((state) => state.jeopardy);
   const history = useHistory();
 
   useEffect(() => {
-    if (score.hits + score.errors === 25) {
+    if (score.hits + score.errors === 25 && logged) {
       dispatch(
         saveGameResultsToDB(score.hits, score.errors, score.points, "jeopardy"),
       );
@@ -34,7 +34,7 @@ const JeopardyGameScreen = () => {
         ),
       );
     }
-  }, [score, dispatch]);
+  }, [score, dispatch, logged]);
 
   if (!active) {
     history.replace("/jeopardy");
