@@ -134,18 +134,37 @@ const loadUserStats = (userStats) => ({
 export const changeUsername = (username) => {
   return (dispatch) => {
     const user = firebase.auth().currentUser;
-    console.log(username);
+
+    if (user.displayName !== username && username.trim() === "") {
+      Swal.fire(
+        "You can´t be No One",
+        "You have to choose a username with at least 3 characters",
+        "error",
+      );
+      return;
+    }
+
+    if (user.displayName !== username && username.trim().length < 3) {
+      Swal.fire(
+        "You need more letters",
+        "You have to choose a username with at least 3 characters",
+        "error",
+      );
+      return;
+    }
 
     if (
       user.displayName !== username &&
       username !== "" &&
       username?.length > 3
     ) {
+      dispatch(startLoading());
       user
         .updateProfile({
           displayName: username,
         })
         .then(() => {
+          dispatch(finishLoading());
           Swal.fire(
             "Updated sucessfuly",
             "Your username has been updated",
@@ -156,6 +175,7 @@ export const changeUsername = (username) => {
           dispatch(updateUsersCollection(user.uid, username, user.photoURL));
         })
         .catch((err) => {
+          dispatch(finishLoading());
           Swal.fire("Error", err, "error");
         });
     }
@@ -166,41 +186,46 @@ export const changePhoto = (image) => {
   return (dispatch) => {
     const user = firebase.auth().currentUser;
 
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL()
-          .then((url) => {
-            user
-              .updateProfile({
-                photoURL: url,
-              })
-              .then(() => {
-                Swal.fire(
-                  "Updated sucessfuly",
-                  "Your profile picture has been updated",
-                  "success",
-                );
+    if (image !== null) {
+      dispatch(startLoading());
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              user
+                .updateProfile({
+                  photoURL: url,
+                })
+                .then(() => {
+                  dispatch(finishLoading());
+                  Swal.fire(
+                    "Updated sucessfuly",
+                    "Your profile picture has been updated",
+                    "success",
+                  );
 
-                dispatch(updateProfilePicture(url));
-                dispatch(
-                  updateUsersCollection(user.uid, user.displayName, url),
-                );
-              })
-              .catch((err) => {
-                Swal.fire("Error", err, "error");
-              });
-          });
-      },
-    );
+                  dispatch(updateProfilePicture(url));
+                  dispatch(
+                    updateUsersCollection(user.uid, user.displayName, url),
+                  );
+                })
+                .catch((err) => {
+                  dispatch(finishLoading());
+                  Swal.fire("Error", err, "error");
+                });
+            });
+        },
+      );
+    }
   };
 };
 

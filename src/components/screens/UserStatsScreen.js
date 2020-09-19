@@ -17,6 +17,7 @@ const UserStatsScreen = () => {
   const { stats, uid, logged, name, photoUrl } = useSelector(
     (state) => state.auth,
   );
+  const { loading } = useSelector((state) => state.ui);
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState(null);
   const [imageName, setImageName] = useState("No image selected");
@@ -66,11 +67,15 @@ const UserStatsScreen = () => {
   };
 
   const handleApplyChanges = () => {
-    dispatch(changeUsername(username));
+    if (username !== null) {
+      dispatch(changeUsername(username));
+      setUsername(null);
+    }
 
     if (file !== null) {
       dispatch(changePhoto(file));
       setImageName("No image selected");
+      setFile(null);
     }
   };
 
@@ -95,7 +100,7 @@ const UserStatsScreen = () => {
                   style={{ width: "100px" }}
                 />
 
-                <h4>{name} </h4>
+                <h4 className='mt-2'>{name} </h4>
                 <p
                   onClick={() => setShowChangeProfile(!showChangeProfile)}
                   style={{
@@ -174,8 +179,9 @@ const UserStatsScreen = () => {
 
                 <button
                   className='btn btn-block btn-primary mt-3'
-                  onClick={handleApplyChanges}>
-                  Apply Changes
+                  onClick={handleApplyChanges}
+                  disabled={loading}>
+                  {!loading ? "Apply Changes" : "Wait for it..."}
                 </button>
               </div>
             )}

@@ -14,6 +14,7 @@ const MainScreen = () => {
               src={triviaImage}
               className='card-img-top'
               alt='image_traditional_trivia'
+              style={{ maxHeight: "220px" }}
             />
             <div className='card-body'>
               <h5 className='card-title'>Traditional Mode</h5>
@@ -33,6 +34,7 @@ const MainScreen = () => {
               src={strikeoutImage}
               className='card-img-top'
               alt='image_traditional_trivia'
+              style={{ maxHeight: "220px" }}
             />
             <div className='card-body'>
               <h5 className='card-title'> Strikeout Mode</h5>
@@ -53,6 +55,7 @@ const MainScreen = () => {
               src={jeopardyImage}
               className='card-img-top'
               alt='image_traditional_trivia'
+              style={{ maxHeight: "220px" }}
             />
             <div className='card-body'>
               <h5 className='card-title'>Jeopardy Mode</h5>

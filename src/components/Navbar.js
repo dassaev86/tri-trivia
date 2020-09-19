@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
       <Link className='navbar-brand' to='/'>
-        Trivia App
+        Tri-Trivia
       </Link>
       <button
         className='navbar-toggler'
@@ -84,7 +84,9 @@ const Navbar = () => {
                 onClick={handleLogout}>
                 Logout
               </Link>
-              <p> Welcome, {name} </p>
+              <Link to='/myStats' style={{ color: "#FFF" }}>
+                {name}
+              </Link>
             </div>
           ) : (
             <div style={{ flexDirection: "column" }}>
