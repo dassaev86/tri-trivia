@@ -31,7 +31,7 @@ const MainScreen = () => {
         <div className=' col-12 col-sm-6 col-lg-4 mt-5'>
           <div className='card'>
             <img
-              src={strikeoutImage}
+              src='https://firebasestorage.googleapis.com/v0/b/triviaapp-f19ed.appspot.com/o/images%2Fjeopardy.jpg?alt=media&token=e381efe0-ecdd-4eaf-918b-9c36b042b2c7'
               className='card-img-top'
               alt='image_traditional_trivia'
               style={{ maxHeight: "220px" }}
