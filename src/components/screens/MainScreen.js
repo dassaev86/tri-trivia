@@ -11,9 +11,9 @@ const MainScreen = () => {
         <div className=' col-12 col-sm-6 col-lg-4 mt-5'>
           <div className='card'>
             <img
-              src={triviaImage}
+              src='https://firebasestorage.googleapis.com/v0/b/triviaapp-f19ed.appspot.com/o/images%2Ftraditional_trivia.jpg?alt=media&token=32ce5cc2-6351-47eb-a80c-41f7074345a2'
               className='card-img-top'
-              alt='image_traditional_trivia'
+              alt='image_traditional'
               style={{ maxHeight: "220px" }}
             />
             <div className='card-body'>
@@ -31,9 +31,9 @@ const MainScreen = () => {
         <div className=' col-12 col-sm-6 col-lg-4 mt-5'>
           <div className='card'>
             <img
-              src='https://firebasestorage.googleapis.com/v0/b/triviaapp-f19ed.appspot.com/o/images%2Fjeopardy.jpg?alt=media&token=e381efe0-ecdd-4eaf-918b-9c36b042b2c7'
+              src='https://firebasestorage.googleapis.com/v0/b/triviaapp-f19ed.appspot.com/o/images%2Fstrikeout.jpg?alt=media&token=39595a6e-1894-46f7-b84c-2fc4387d574f'
               className='card-img-top'
-              alt='image_traditional_trivia'
+              alt='image_strikeout'
               style={{ maxHeight: "220px" }}
             />
             <div className='card-body'>
@@ -52,9 +52,9 @@ const MainScreen = () => {
         <div className='col-12 col-sm-6 col-lg-4 mt-5'>
           <div className='card'>
             <img
-              src={jeopardyImage}
+              src='https://firebasestorage.googleapis.com/v0/b/triviaapp-f19ed.appspot.com/o/images%2Fjeopardy.jpg?alt=media&token=e381efe0-ecdd-4eaf-918b-9c36b042b2c7'
               className='card-img-top'
-              alt='image_traditional_trivia'
+              alt='image_jeopardy'
               style={{ maxHeight: "220px" }}
             />
             <div className='card-body'>
