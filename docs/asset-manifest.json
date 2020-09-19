@@ -14,9 +14,9 @@
         "static/css/2.e603e8eb.chunk.css.map": "/static/css/2.e603e8eb.chunk.css.map",
         "static/css/main.ab867967.chunk.css.map": "/static/css/main.ab867967.chunk.css.map",
         "static/js/2.2b8c5218.chunk.js.LICENSE.txt": "/static/js/2.2b8c5218.chunk.js.LICENSE.txt",
-        "static/media/jeopardy.jpg": "static/media/jeopardy.d468138d.jpg",
-        "static/media/strikeout.jpg": "static/media/strikeout.7fad7bcf.jpg",
-        "static/media/traditional_trivia.jpg": "static/media/traditional_trivia.503b76bd.jpg"
+        "static/media/jeopardy.jpg": "./static/media/jeopardy.d468138d.jpg",
+        "static/media/strikeout.jpg": "./static/media/strikeout.7fad7bcf.jpg",
+        "static/media/traditional_trivia.jpg": "./static/media/traditional_trivia.503b76bd.jpg"
     },
     "entrypoints": [
         "static/js/runtime-main.f2e9d414.js",
