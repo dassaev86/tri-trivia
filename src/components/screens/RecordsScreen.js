@@ -30,7 +30,7 @@ const RecordsScreen = () => {
   return (
     <div className='container'>
       <div className='row justify-content-center'>
-        <div className='col-12 col-sm-12 col-lg-8 mt-5'>
+        <div className='col-12 col-sm-10 col-lg-8 mt-5'>
           <div>
             <h5>Traditional Mode Top 10</h5>
           </div>

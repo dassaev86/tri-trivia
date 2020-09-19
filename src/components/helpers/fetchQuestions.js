@@ -24,7 +24,7 @@ export const fetchQuestions = async (amount, difficulty, category) => {
   }
 
   const url = `https://opentdb.com/api.php?amount=${amount}${categotyUrl}${difficultyUrl}&type=multiple&encode=base64&token=${token}`;
-  console.log(url);
+
   const response = await fetch(url);
   const { results } = await response.json();
 
@@ -45,7 +45,6 @@ const checkToken = async (token) => {
 
   const response = await fetch(url);
   const { response_code } = await response.json();
-  console.log("RESPONSE CODE: ", response_code);
 
   return response_code;
 };

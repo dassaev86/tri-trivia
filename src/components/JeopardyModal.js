@@ -15,7 +15,6 @@ const JeopardyModal = () => {
   const [showButtonClose, setShowButtonClose] = useState(false);
   const { modalOpen } = useSelector((state) => state.ui);
   const { trivia, idx, score } = useSelector((state) => state.jeopardy);
-  console.log(trivia, idx, score);
 
   const handleCloseModal = () => {
     dispatch(closeModal());

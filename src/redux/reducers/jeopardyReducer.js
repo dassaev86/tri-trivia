@@ -15,7 +15,6 @@ const initialState = {
 export const jeopardyReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.jeopardySetTrivia:
-      console.log("IDX: ", action.payload.idx);
       return {
         ...state,
         trivia: {
