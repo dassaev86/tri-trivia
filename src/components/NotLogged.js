@@ -5,7 +5,7 @@ const NotLogged = () => {
   return (
     <>
       <div className='row justify-content-center mt-5'>
-        <div className='col-12 col-sm-8 col-lg-6'>
+        <div className='col-12 col-sm-6 col-lg-4'>
           <div className='card'>
             <div className='card-body'>
               <h5 className='card-title'>We don't know who you are...</h5>

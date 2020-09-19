@@ -1,7 +1,5 @@
 import React from "react";
-import triviaImage from "../../assets/traditional_trivia.jpg";
-import strikeoutImage from "../../assets/strikeout.jpg";
-import jeopardyImage from "../../assets/jeopardy.jpg";
+
 import { Link } from "react-router-dom";
 
 const MainScreen = () => {

@@ -23,6 +23,7 @@ import Navbar from "../components/Navbar";
 import UserStatsScreen from "../components/screens/UserStatsScreen";
 import RecordsScreen from "../components/screens/RecordsScreen";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -45,9 +46,9 @@ const AppRouter = () => {
   }
 
   return (
-    <div>
+    <div className='page-container'>
       <Router>
-        <div>
+        <div className='content-wrap'>
           <Navbar />
           <Switch>
             <Route
@@ -78,6 +79,7 @@ const AppRouter = () => {
 
             <Redirect to='auth/login' />
           </Switch>
+          <Footer />
         </div>
       </Router>
     </div>
